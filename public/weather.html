@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>City Finder and Dictionary</title>
+<link href="stylesheets/style.css" rel="stylesheet" type="text/css"></link>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+</head>
+<h1>The Magnificent City and Definition Finder!</h1>
+<body>
+<div class = "main">
+<form class="city">
+Enter A Utah City: <input type="text" id="cityfield" value=""><br>
+Suggestion: <span id="txtHint">Empty</span>
+</form>
+<form class="def">
+Enter A Word: <input type="text" id="wordfield" value=""><br>
+Definition: <span id="definition">Empty</span>
+</form>
+</div>
+<script>
+$( "#cityfield" ).keyup(function() {
+  var url = "getcity?q="+$("#cityfield").val();
+  $.getJSON(url,function(data) {
+    var everything;
+    everything = "<ul>";
+    $.each(data, function(i,item) {
+      everything += "<li> "+data[i].city;
+    });
+    everything += "</ul>";
+    $("#txtHint").html(everything);
+  });
+});
+
+$("#wordfield").keyup(function() {
+  var url = "getword?q="+$("#wordfield").val();
+  $.getJSON(url,function(data) {
+    var everything;
+    everything = "<ul>";
+    $.each(data, function(i,item) {
+      everything += "<li> "+data[i].defenition+"</li>";
+    });
+    everything += "</ul>";
+    $("#definition").html(everything);
+  });
+});
+</script>
+
+</body>
+</html>
